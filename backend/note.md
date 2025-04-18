@@ -1,0 +1,2 @@
+- Phần đăng nhập xử lý chưa hoàn hảo
+- Thông tin nhân viên cần chứa DepartmentID

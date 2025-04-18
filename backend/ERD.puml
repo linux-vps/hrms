@@ -1,0 +1,102 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+
+' --- Entities ---
+entity "User" as U {
+  + _id: ObjectId <<PK>>
+  --
+  email: String
+  password: String
+  role: enum('admin','employee') [default:'employee']
+  employeeId: ObjectId <<FK>> nullable
+}
+
+entity "Employee" as E {
+  + _id: ObjectId <<PK>>
+  --
+  firstName: String
+  lastName: String
+  dateOfBirth: String
+  gender: enum('Nam','Nữ','Khác')
+  address: String
+  email: String
+  phone: String
+  departmentId: ObjectId <<FK>>
+  position: String
+  salary: Number [default:0]
+  role: enum('Trưởng phòng','Thành viên') [default:'Thành viên']
+  hireDate: Date [default:now]
+  avatar: String [default:'default.jpg']
+  leaveDaysPerMonth: Number [default:5]
+  remainingLeaveDays: Number [default:5]
+}
+
+entity "Department" as D {
+  + _id: ObjectId <<PK>>
+  --
+  name: String
+  description: String
+}
+
+entity "Attendance" as A {
+  + _id: ObjectId <<PK>>
+  --
+  employeeId: ObjectId <<FK>>
+  date: Date
+  status: enum('Có mặt','Vắng mặt','Nghỉ phép') [default:'Có mặt']
+  note: String
+}
+
+entity "Leave" as L {
+  + _id: ObjectId <<PK>>
+  --
+  employeeId: ObjectId <<FK>>
+  startDate: Date
+  endDate: Date
+  reason: String
+  type: enum('Nghỉ phép','Nghỉ ốm','Nghỉ không lương','Khác')
+  status: enum('Chờ duyệt','Đã duyệt','Từ chối') [default:'Chờ duyệt']
+}
+
+entity "Payroll" as P {
+  + _id: ObjectId <<PK>>
+  --
+  employeeId: ObjectId <<FK>>
+  month: Integer
+  year: Integer
+  baseSalary: Number [default:0]
+  bonusSalary: Number [default:0]
+  taxDeduction: Number [default:0]
+  netSalary: Number [default:0]
+}
+
+entity "ActivityLog" as AL {
+  + _id: ObjectId <<PK>>
+  --
+  userId: ObjectId <<FK>>
+  action: String
+  entityType: String
+  entityId: ObjectId
+  timestamp: Date
+}
+
+entity "Feed" as F {
+  + _id: ObjectId <<PK>>
+  --
+  title: String
+  content: String
+  departmentId: ObjectId <<FK>> nullable
+  timestamp: Date
+}
+
+' --- Relationships ---
+U ||--|| E : "1:1 belongsTo"
+D ||--o{ E : "1:n hasEmployees"
+E ||--o{ A : "1:n attendanceRecords"
+E ||--o{ L : "1:n leaveRequests"
+E ||--o{ P : "1:n payrolls"
+U ||--o{ AL : "1:n activityLogs"
+D ||--o{ F : "1:n feeds"
+
+@enduml
