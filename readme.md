@@ -31,7 +31,7 @@ This project is a Human Resource Management System (HRMS) developed using NestJS
 
 # Plan frontend
 - [ ] **Authentication Pages**: Develop login and registration pages with JWT token handling.
-- [ ] **Dashboard**: Create a dashboard for admins and employees with role-based access.
+- [x] **Dashboard**: Create a dashboard for admins and employees with role-based access.
 - [ ] **Employee Management**: Build interfaces for viewing, creating, updating, and deleting employee records.
 - [ ] **Department Management**: Develop pages for managing departments, including CRUD operations.
 - [ ] **Attendance Tracking**: Create views for recording and viewing attendance records.
