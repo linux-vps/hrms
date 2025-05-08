@@ -1,0 +1,31 @@
+import { BaseEntity } from 'src/common/types/base-entity.type';
+import { Employee } from 'src/employees/entities/employee.entity';
+import { PayrollAllowance } from './payroll-allowance.entity';
+import { PayrollDeduction } from './payroll-deduction.entity';
+import { PayrollBonus } from './payroll-bonus.entity';
+export declare class Payroll extends BaseEntity {
+    employee: Employee;
+    employeeId: string;
+    month: number;
+    year: number;
+    baseSalary: number;
+    workingDays: number;
+    standardWorkingDays: number;
+    overtimeHours: number;
+    overtimePay: number;
+    grossSalary: number;
+    allowances: PayrollAllowance[];
+    bonuses: PayrollBonus[];
+    deductions: PayrollDeduction[];
+    totalAllowance: number;
+    totalBonus: number;
+    totalDeduction: number;
+    socialInsurance: number;
+    healthInsurance: number;
+    unemploymentInsurance: number;
+    personalIncomeTax: number;
+    netSalary: number;
+    note: string;
+    isPaid: boolean;
+    paymentDate: Date;
+}

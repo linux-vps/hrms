@@ -1,0 +1,549 @@
+###############################################################################
+# API Testing File cho HRMS Backend
+# Sử dụng cho extension HttpYac trong VSCode
+###############################################################################
+
+# Biến môi trường
+@baseUrl = http://localhost:3005/api
+@email = admin@example.com
+@password = Password123!
+{{
+  $global.accessToken = null;
+  $global.refreshToken = null;
+}}
+
+###############################################################################
+# Authentication API
+###############################################################################
+
+### Đăng nhập và lưu token
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+# Lưu token từ response
+{{
+  $global.accessToken = response.parsedBody.data.token;
+  $global.userId = response.parsedBody.data.userId;
+  $global.employeeId = response.parsedBody.data.employeeId;
+}}
+
+### Đăng ký tài khoản mới
+# @name register
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "Password123!"
+}
+
+### Lấy thông tin người dùng
+# @name getProfile
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{$global.accessToken}}
+
+###############################################################################
+# Departments API
+###############################################################################
+
+### Lấy danh sách phòng ban với phân trang
+# @name getAllDepartments
+GET {{baseUrl}}/departments?page=1&limit=10
+Authorization: Bearer {{$global.accessToken}}
+
+### Lấy thông tin phòng ban theo ID
+# @name getDepartmentById
+GET {{baseUrl}}/departments/your-department-id
+Authorization: Bearer {{$global.accessToken}}
+
+### Tạo phòng ban mới
+# @name createDepartment
+POST {{baseUrl}}/departments
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "name": "Phòng IT",
+  "description": "Phòng phát triển công nghệ thông tin"
+}
+
+# Lưu department ID từ response
+{{
+  $global.departmentId = response.parsedBody.data.id;
+}}
+
+### Cập nhật thông tin phòng ban
+# @name updateDepartment
+PUT {{baseUrl}}/departments/{{$global.departmentId}}
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "name": "Phòng IT - Updated",
+  "description": "Mô tả đã được cập nhật"
+}
+
+### Xóa phòng ban
+# @name deleteDepartment
+DELETE {{baseUrl}}/departments/{{$global.departmentId}}
+Authorization: Bearer {{$global.accessToken}}
+
+###############################################################################
+# Employees API
+###############################################################################
+
+### Lấy danh sách nhân viên với phân trang và tìm kiếm
+# @name getAllEmployees
+GET {{baseUrl}}/employees?page=1&limit=10&search=
+Authorization: Bearer {{$global.accessToken}}
+
+### Lấy thông tin nhân viên theo ID
+# @name getEmployeeById
+GET {{baseUrl}}/employees/{{$global.employeeId}}
+Authorization: Bearer {{$global.accessToken}}
+
+### Tạo nhân viên mới
+# @name createEmployee
+POST {{baseUrl}}/employees
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "firstName": "Nguyễn",
+  "lastName": "Văn A",
+  "dateOfBirth": "1990-01-01",
+  "gender": "MALE",
+  "address": "Hà Nội, Việt Nam",
+  "email": "nguyenvana@example.com",
+  "phone": "0901234567",
+  "departmentId": "{{$global.departmentId}}",
+  "position": "Developer",
+  "role": "MEMBER",
+  "salary": 10000000,
+  "hireDate": "2023-01-01",
+  "leaveDaysPerMonth": 1.5
+}
+
+# Lưu employee ID từ response
+{{
+  $global.newEmployeeId = response.parsedBody.data.id;
+}}
+
+### Cập nhật thông tin nhân viên
+# @name updateEmployee
+PUT {{baseUrl}}/employees/{{$global.newEmployeeId}}
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "firstName": "Nguyễn",
+  "lastName": "Văn B",
+  "address": "Hồ Chí Minh, Việt Nam",
+  "position": "Senior Developer",
+  "salary": 15000000,
+  "remainingLeaveDays": 10
+}
+
+### Cập nhật lương nhân viên
+# @name updateEmployeeSalary
+PUT {{baseUrl}}/employees/{{$global.newEmployeeId}}/salary
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "salary": 12000000,
+  "effectiveDate": "2023-06-01"
+}
+
+### Xóa nhân viên
+# @name deleteEmployee
+DELETE {{baseUrl}}/employees/{{$global.newEmployeeId}}
+Authorization: Bearer {{$global.accessToken}}
+
+### Tải lên avatar nhân viên
+# @name uploadEmployeeAvatar
+POST {{baseUrl}}/employees/{{$global.employeeId}}/avatar
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="avatar.jpg"
+Content-Type: image/jpeg
+
+< ./uploads/avatars/example.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###############################################################################
+# Attendance API
+###############################################################################
+
+### Lấy danh sách chấm công
+# @name getAllAttendances
+GET {{baseUrl}}/attendance?employeeId={{$global.employeeId}}&startDate=2023-01-01&endDate=2023-01-31&page=1&limit=10
+Authorization: Bearer {{$global.accessToken}}
+
+### Lấy thông tin chấm công theo ID
+# @name getAttendanceById
+GET {{baseUrl}}/attendance/your-attendance-id
+Authorization: Bearer {{$global.accessToken}}
+
+### Check-in
+# @name checkIn
+POST {{baseUrl}}/attendance/check-in
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "note": "Check-in từ văn phòng"
+}
+
+# Lưu attendance ID từ response
+{{
+  $global.attendanceId = response.parsedBody.data.id;
+}}
+
+### Check-out
+# @name checkOut
+POST {{baseUrl}}/attendance/check-out
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "note": "Check-out từ văn phòng"
+}
+
+### Tạo chấm công thủ công
+# @name createAttendanceManually
+POST {{baseUrl}}/attendance
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "employeeId": "{{$global.employeeId}}",
+  "date": "2023-01-15",
+  "status": "PRESENT",
+  "checkInTime": "08:30",
+  "checkOutTime": "17:30",
+  "workShiftId": "{{$global.workshiftId}}",
+  "note": "Tạo thủ công",
+  "isLate": false,
+  "isEarlyLeave": false
+}
+
+### Cập nhật chấm công
+# @name updateAttendance
+PUT {{baseUrl}}/attendance/{{$global.attendanceId}}
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "status": "PRESENT",
+  "checkInTime": "08:15",
+  "checkOutTime": "17:45",
+  "note": "Đã cập nhật",
+  "isLate": false,
+  "isEarlyLeave": false,
+  "workShiftId": "{{$global.workshiftId}}"
+}
+
+### Xóa chấm công
+# @name deleteAttendance
+DELETE {{baseUrl}}/attendance/{{$global.attendanceId}}
+Authorization: Bearer {{$global.accessToken}}
+
+###############################################################################
+# Work Shifts API
+###############################################################################
+
+### Lấy danh sách ca làm việc
+# @name getAllWorkShifts
+GET {{baseUrl}}/work-shifts?page=1&limit=10
+Authorization: Bearer {{$global.accessToken}}
+
+### Lấy thông tin ca làm việc theo ID
+# @name getWorkShiftById
+GET {{baseUrl}}/work-shifts/your-workshift-id
+Authorization: Bearer {{$global.accessToken}}
+
+### Tạo ca làm việc mới
+# @name createWorkShift
+POST {{baseUrl}}/work-shifts
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "name": "Ca sáng",
+  "description": "Ca làm việc buổi sáng",
+  "type": "HALF_DAY",
+  "startTime": "08:00",
+  "endTime": "12:00",
+  "breakStart": "10:00",
+  "breakEnd": "10:15",
+  "active": true
+}
+
+# Lưu workshift ID từ response
+{{
+  $global.workshiftId = response.parsedBody.data.id;
+}}
+
+### Cập nhật ca làm việc
+# @name updateWorkShift
+PUT {{baseUrl}}/work-shifts/{{$global.workshiftId}}
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "name": "Ca sáng - Updated",
+  "startTime": "08:30",
+  "endTime": "12:30",
+  "description": "Ca làm việc buổi sáng (đã cập nhật)",
+  "active": true
+}
+
+### Xóa ca làm việc
+# @name deleteWorkShift
+DELETE {{baseUrl}}/work-shifts/{{$global.workshiftId}}
+Authorization: Bearer {{$global.accessToken}}
+
+###############################################################################
+# Leaves API
+###############################################################################
+
+### Lấy danh sách nghỉ phép
+# @name getAllLeaves
+GET {{baseUrl}}/leaves?employeeId={{$global.employeeId}}&status=PENDING&page=1&limit=10
+Authorization: Bearer {{$global.accessToken}}
+
+### Lấy thông tin nghỉ phép theo ID
+# @name getLeaveById
+GET {{baseUrl}}/leaves/your-leave-id
+Authorization: Bearer {{$global.accessToken}}
+
+### Yêu cầu nghỉ phép
+# @name requestLeave
+POST {{baseUrl}}/leaves
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "employeeId": "{{$global.employeeId}}",
+  "type": "ANNUAL",
+  "startDate": "2023-02-01",
+  "endDate": "2023-02-03",
+  "reason": "Nghỉ phép năm",
+  "days": 3
+}
+
+# Lưu leave ID từ response
+{{
+  $global.leaveId = response.parsedBody.data.id;
+}}
+
+### Chấp nhận yêu cầu nghỉ phép
+# @name approveLeave
+PUT {{baseUrl}}/leaves/{{$global.leaveId}}/approve
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "approverNote": "Đồng ý yêu cầu nghỉ phép"
+}
+
+### Từ chối yêu cầu nghỉ phép
+# @name rejectLeave
+PUT {{baseUrl}}/leaves/{{$global.leaveId}}/reject
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "approverNote": "Từ chối yêu cầu nghỉ phép"
+}
+
+### Hủy yêu cầu nghỉ phép
+# @name cancelLeave
+PUT {{baseUrl}}/leaves/{{$global.leaveId}}/cancel
+Authorization: Bearer {{$global.accessToken}}
+
+### Cập nhật yêu cầu nghỉ phép
+# @name updateLeave
+PUT {{baseUrl}}/leaves/{{$global.leaveId}}
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "startDate": "2023-02-02",
+  "endDate": "2023-02-05",
+  "reason": "Cập nhật lý do nghỉ phép",
+  "days": 4
+}
+
+### Xóa yêu cầu nghỉ phép
+# @name deleteLeave
+DELETE {{baseUrl}}/leaves/{{$global.leaveId}}
+Authorization: Bearer {{$global.accessToken}}
+
+###############################################################################
+# Payroll API
+###############################################################################
+
+### Tạo bảng lương
+# @name generatePayroll
+POST {{baseUrl}}/payroll/generate
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "year": 2023,
+  "month": 1
+}
+
+# Lưu payroll ID từ response
+{{
+  $global.payrollId = response.parsedBody.data.id;
+}}
+
+### Lấy thông tin bảng lương theo ID
+# @name getPayrollById
+GET {{baseUrl}}/payroll/{{$global.payrollId}}
+Authorization: Bearer {{$global.accessToken}}
+
+### Lấy bảng lương của nhân viên
+# @name getPayrollByEmployee
+GET {{baseUrl}}/payroll/employee/{{$global.employeeId}}?year=2023&month=1
+Authorization: Bearer {{$global.accessToken}}
+
+### Lấy danh sách bảng lương theo kỳ
+# @name getPayrollsByPeriod
+GET {{baseUrl}}/payroll?year=2023&month=1&page=1&limit=10
+Authorization: Bearer {{$global.accessToken}}
+
+### Cập nhật bảng lương
+# @name updatePayroll
+PUT {{baseUrl}}/payroll/{{$global.payrollId}}
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "bonus": 1000000,
+  "deduction": 500000,
+  "note": "Cập nhật lương tháng 1/2023",
+  "socialInsurance": 800000,
+  "healthInsurance": 300000,
+  "unemploymentInsurance": 100000,
+  "personalIncomeTax": 500000,
+  "totalAllowance": 500000,
+  "totalBonus": 1000000,
+  "totalDeduction": 500000
+}
+
+### Phê duyệt bảng lương
+# @name approvePayroll
+PUT {{baseUrl}}/payroll/{{$global.payrollId}}/approve
+Authorization: Bearer {{$global.accessToken}}
+
+### Từ chối bảng lương
+# @name rejectPayroll
+PUT {{baseUrl}}/payroll/{{$global.payrollId}}/reject
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "note": "Từ chối bảng lương do sai số liệu"
+}
+
+###############################################################################
+# Feed API
+###############################################################################
+
+### Lấy danh sách bài đăng
+# @name getAllPosts
+GET {{baseUrl}}/feed?page=1&limit=10
+Authorization: Bearer {{$global.accessToken}}
+
+### Lấy thông tin bài đăng theo ID
+# @name getPostById
+GET {{baseUrl}}/feed/your-post-id
+Authorization: Bearer {{$global.accessToken}}
+
+### Tạo bài đăng mới
+# @name createPost
+POST {{baseUrl}}/feed
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "title": "Thông báo mới",
+  "content": "Nội dung thông báo cho tất cả nhân viên",
+  "type": "ANNOUNCEMENT",
+  "departmentId": "{{$global.departmentId}}",
+  "isImportant": true
+}
+
+# Lưu post ID từ response
+{{
+  $global.postId = response.parsedBody.data.id;
+}}
+
+### Cập nhật bài đăng
+# @name updatePost
+PUT {{baseUrl}}/feed/{{$global.postId}}
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "title": "Thông báo đã cập nhật",
+  "content": "Nội dung thông báo đã được cập nhật",
+  "isImportant": false
+}
+
+### Xóa bài đăng
+# @name deletePost
+DELETE {{baseUrl}}/feed/{{$global.postId}}
+Authorization: Bearer {{$global.accessToken}}
+
+### Thích bài đăng
+# @name likePost
+POST {{baseUrl}}/feed/{{$global.postId}}/like
+Authorization: Bearer {{$global.accessToken}}
+
+### Bỏ thích bài đăng
+# @name unlikePost
+DELETE {{baseUrl}}/feed/{{$global.postId}}/like
+Authorization: Bearer {{$global.accessToken}}
+
+### Thêm bình luận
+# @name addComment
+POST {{baseUrl}}/feed/{{$global.postId}}/comments
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "content": "Bình luận cho bài đăng"
+}
+
+# Lưu comment ID từ response
+{{
+  $global.commentId = response.parsedBody.data.id;
+}}
+
+### Cập nhật bình luận
+# @name updateComment
+PUT {{baseUrl}}/feed/{{$global.postId}}/comments/{{$global.commentId}}
+Authorization: Bearer {{$global.accessToken}}
+Content-Type: application/json
+
+{
+  "content": "Bình luận đã cập nhật"
+}
+
+### Xóa bình luận
+# @name deleteComment
+DELETE {{baseUrl}}/feed/{{$global.postId}}/comments/{{$global.commentId}}
+Authorization: Bearer {{$global.accessToken}} 

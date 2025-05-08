@@ -1,0 +1,42 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PayrollModule = void 0;
+const common_1 = require("@nestjs/common");
+const typeorm_1 = require("@nestjs/typeorm");
+const payroll_entity_1 = require("./entities/payroll.entity");
+const payroll_bonus_entity_1 = require("./entities/payroll-bonus.entity");
+const payroll_deduction_entity_1 = require("./entities/payroll-deduction.entity");
+const employee_entity_1 = require("../employees/entities/employee.entity");
+const user_entity_1 = require("../auth/entities/user.entity");
+const attendance_entity_1 = require("../attendance/entities/attendance.entity");
+const leave_entity_1 = require("../leaves/entities/leave.entity");
+const payroll_controller_1 = require("./controllers/payroll.controller");
+const payroll_service_1 = require("./services/payroll.service");
+let PayrollModule = class PayrollModule {
+};
+exports.PayrollModule = PayrollModule;
+exports.PayrollModule = PayrollModule = __decorate([
+    (0, common_1.Module)({
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([
+                payroll_entity_1.Payroll,
+                payroll_bonus_entity_1.PayrollBonus,
+                payroll_deduction_entity_1.PayrollDeduction,
+                employee_entity_1.Employee,
+                user_entity_1.User,
+                attendance_entity_1.Attendance,
+                leave_entity_1.Leave
+            ]),
+        ],
+        controllers: [payroll_controller_1.PayrollController],
+        providers: [payroll_service_1.PayrollService],
+        exports: [typeorm_1.TypeOrmModule],
+    })
+], PayrollModule);
+//# sourceMappingURL=payroll.module.js.map
