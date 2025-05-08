@@ -1,0 +1,21 @@
+/*Preloader*/
+.preloader {
+  z-index: 60;
+}
+.loaded-success .preloader {
+  visibility: hidden !important;
+  transition: all 1s ease-in-out;
+}
+.animate-spin-slow {
+  -webkit-animation: spin 3s linear infinite;
+          animation: spin 3s linear infinite;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

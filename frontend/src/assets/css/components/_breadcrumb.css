@@ -1,0 +1,9 @@
+/* breadcrumb  */
+.breadcrumb-lists li:not(:last-child)::after {
+  display: inline-block;
+  margin: 0 0 0 .25rem;
+  content: "→";
+}
+.breadcrumb-lists.light li:not(:last-child)::after {
+  color: #f8f8f8;
+}

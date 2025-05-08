@@ -1,0 +1,24 @@
+/* Buttn group  */
+.btn-group-horizontal button {
+  @apply rounded-none mb-0;
+  margin-right: -1px;
+}
+.btn-group-vertical {
+  min-width: 10rem;
+}
+.btn-group-vertical button {
+  @apply rounded-none;
+  margin-bottom: -1px;
+}
+.btn-group-vertical button:first-child {
+  @apply rounded-t;
+}
+.btn-group-vertical button:last-child {
+  @apply rounded-b mb-0;
+}
+.btn-group-horizontal button:first-child {
+  @apply rounded-l;
+}
+.btn-group-horizontal button:last-child {
+  @apply rounded-r mr-0;
+}

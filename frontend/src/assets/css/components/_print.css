@@ -1,0 +1,8 @@
+@media print {
+  #sidebar-menu, #desktop-menu, footer, #headpage { 
+  	@apply hidden;
+  }
+  div.shadow-lg {
+  	@apply shadow-none;
+  }
+}

@@ -1,0 +1,130 @@
+/*sidebar and content */
+.sidebar-area {
+  @apply w-0 md:w-64;
+}
+.wrapper.show .sidebar-area {
+  @apply w-64 md:w-0;
+}
+.sidebar-compact {
+  @apply w-0 md:w-20;
+}
+.wrapper.show .sidebar-compact {
+  @apply w-64 md:w-0;
+}
+.content-area {
+  @apply ltr:ml-0 ltr:mr-0 md:ltr:ml-64 rtl:mr-0 rtl:ml-0 md:rtl:mr-64
+}
+.content-compact {
+  @apply ltr:ml-0 ltr:mr-0 md:ltr:ml-20 rtl:mr-0 rtl:ml-0 md:rtl:mr-20
+}
+.wrapper.show .content-area {
+  @apply ltr:ml-64 ltr:-mr-64 md:ltr:ml-0 md:ltr:mr-0 rtl:mr-64 rtl:-ml-64 md:rtl:mr-0 md:rtl:ml-0;
+}
+.wrapper.show .content-compact {
+  @apply ltr:ml-64 ltr:-mr-64 md:ltr:ml-0 md:ltr:mr-0 rtl:mr-64 rtl:-ml-64 md:rtl:mr-0 md:rtl:ml-0;
+}
+.navtop-area {
+  @apply ltr:left-0 ltr:right-0 md:ltr:left-64 rtl:right-0 rtl:left-0 md:rtl:right-64
+}
+.wrapper.show .navtop-area {
+  @apply ltr:left-64 ltr:-right-64 md:ltr:left-0 md:ltr:right-0 rtl:right-64 rtl:-left-64 md:rtl:right-0 md:rtl:left-0
+}
+.navtop-compact {
+  @apply ltr:left-0 ltr:right-0 md:ltr:left-20 rtl:right-0 rtl:left-0 md:rtl:right-20
+}
+.wrapper.show .navtop-compact {
+  @apply ltr:left-64 ltr:-right-64 md:ltr:left-0 md:ltr:right-0 rtl:right-64 rtl:-left-64 md:rtl:right-0 md:rtl:left-0
+}
+.sidenav-hidden {
+  @apply block md:hidden;
+}
+.sidenav-block {
+  @apply hidden md:block;
+}
+.wrapper.show .sidenav-hidden {
+  @apply hidden md:block;
+}
+.wrapper.show .sidenav-block {
+  @apply block md:hidden;
+}
+
+/* sidebar active */
+li.active ul {
+  @apply block;
+} 
+li.active button svg {
+  @apply rotate-0;
+}
+
+/*Sidebar compact*/
+@media (min-width: 768px) {
+  .sidebar-compact {
+    z-index:60;
+  }
+  .sidebar-compact .hidden-compact {
+    visibility:hidden;
+    height:0px;
+    width:0px;
+    opacity:0;
+    transition: visibility 0s, opacity 1.5s linear;
+  }
+  .sidebar-compact .hidden-compact span.text {
+    display:none;
+  }
+  .sidebar-compact .logo-compact {
+    display:inline-block;
+    visibility:visible;
+    height:auto;
+    width:auto;
+    opacity:1;
+  }
+  .sidebar-compact ul li ul, .sidebar-compact a span.text, .sidebar-compact button span.text{
+    display:none;
+  }
+  .sidebar-compact ul li ul.cpt.\!block {
+    display: none !important;
+  }
+  .sidebar-compact:hover ul li ul.cpt.\!block {
+    display: block !important;
+  }
+  .sidebar-compact ul > li {
+    padding-bottom: 0.35rem;
+    padding-top: 0.35rem;
+  }
+  .sidebar-compact:hover ul > li {
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+  .flatpickr-day.sidebar-compact ul li ul, .flatpickr-day.sidebar-compact a span {
+    visibility: hidden;
+  }
+  .sidebar-compact:hover {
+    width: 16rem;
+  }
+  .sidebar-compact:hover .hidden-compact {
+    visibility:visible;
+    height:auto;
+    width:auto;
+    opacity:1;
+  }
+  .sidebar-compact:hover .hidden-compact span.text {
+    display:inline-block;
+  }
+  .sidebar-compact:hover .box-banner {
+    display:block;
+  }
+  .sidebar-compact:hover a span, .sidebar-compact:hover button span {
+    display:inline-block;
+  }
+  .sidebar-compact:hover .logo-compact {
+    visibility:hidden;
+    display: none;
+    height:0px;
+    width:0px;
+    opacity:0;
+    transition: visibility 0s, opacity 1.5s linear;
+  }
+  .sidebar-compact .box-banner {
+    display:none;
+  }
+}

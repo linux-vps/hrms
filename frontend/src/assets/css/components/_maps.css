@@ -1,0 +1,24 @@
+/* maps  */
+.map_svg svg path {
+  @apply fill-gray-400 relative;
+}
+.map_svg svg path:hover {
+  @apply fill-indigo-300;
+}
+.map_svg svg path[aria-checked="true"] {
+  @apply fill-indigo-500;
+}
+.map_svg svg path[aria-label]::after {
+  background: rgba(17, 17, 17, .9);
+  border-radius: 4px;
+  color: #ffffff;
+  content: attr(aria-label);
+  padding: 0.5em 1em;
+  white-space: nowrap;
+  transform: translate3d(-50%, 0, 0);
+  bottom: 100%;
+  left: 50%;
+  position: absolute;
+  z-index: 10;
+  transform-origin: top;
+}

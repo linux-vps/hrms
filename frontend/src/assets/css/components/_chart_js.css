@@ -1,0 +1,53 @@
+/*chart js*/
+@-webkit-keyframes chartjs-render-animation {
+  from {
+    opacity: .99;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+@keyframes chartjs-render-animation {
+  from {
+    opacity: .99;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+.chartjs-render-monitor {
+  -webkit-animation: chartjs-render-animation 1ms;
+          animation: chartjs-render-animation 1ms;
+}
+.chartjs-size-monitor, .chartjs-size-monitor-expand, .chartjs-size-monitor-shrink {
+  direction: ltr;
+  pointer-events: none;
+  visibility: hidden;
+  z-index: -1;
+  position:absolute;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  left:0px;
+  overflow:hidden;
+}
+.chartjs-size-monitor-expand > div {
+  width: 1000000px;
+  height: 1000000px;
+  position:absolute;
+  top:0px;
+}
+[dir="ltr"] .chartjs-size-monitor-expand > div, [dir="ltr"] .chartjs-size-monitor-shrink > div {
+  left:0px;
+}
+[dir="rtl"] .chartjs-size-monitor-expand > div, [dir="rtl"] .chartjs-size-monitor-shrink > div {
+  right:0px;
+}
+.chartjs-size-monitor-shrink > div {
+  position:absolute;
+  top:0px;
+  width: 200%;
+  height: 200%;
+}

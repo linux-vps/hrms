@@ -1,0 +1,25 @@
+/* Heading */
+.heading-1 {
+  @apply text-4xl leading-tight;
+}
+.heading-2 {
+  @apply text-3xl leading-tight;
+}
+.heading-3 {
+  @apply text-2xl leading-tight;
+}
+.heading-4 {
+  @apply text-xl leading-tight;
+}
+.heading-5 {
+  @apply text-lg leading-tight;
+}
+.heading-6 {
+  @apply text-base leading-tight;
+}
+sub, sup {
+  font-size: 55%;
+}
+.text-small {
+  font-size: .75em;
+}

@@ -1,1 +1,0 @@
-- Bổ sung is_active cho các bảng

@@ -1,0 +1,67 @@
+/* Table default  */
+.table-default {
+  @apply table-auto w-full;
+}
+.table-default thead {
+  @apply bg-gray-100 border-t border-l border-r dark:bg-gray-900 dark:bg-opacity-40 dark:border-gray-700;
+}
+.table-default thead tr th {
+  @apply px-4 py-3;
+}
+.table-default tbody tr td {
+  @apply border border-gray-200 px-4 py-3 dark:border-gray-700 font-medium;
+}
+/* table bordered  */
+.table-bordered {
+  width: 100%;
+  border-collapse:collapse;
+}
+.table-bordered td, .table-bordered th {
+  border-width:1px;
+  --tw-border-opacity:1;
+  border-color:rgba(239, 240, 254, var(--tw-border-opacity));
+  padding-left:0.75rem;
+  padding-right:0.75rem;
+  padding-top:1rem;
+  padding-bottom:1rem;
+}
+.table-bordered-bottom {
+  @apply w-full text-gray-500 dark:text-gray-400;
+}
+.table-bordered-bottom thead>tr, .table-bordered thead>tr {
+  @apply bg-gray-200 dark:bg-gray-900 dark:bg-opacity-40;
+}
+.table-bordered-bottom tr {
+  border-bottom-width:1px;
+  --tw-border-opacity:1;
+  border-color:rgba(239, 240, 254, var(--tw-border-opacity));
+}
+.table-bordered-bottom td, .table-bordered-bottom th {
+  padding-left:0.75rem;
+  padding-right:0.75rem;
+  padding-top:1rem;
+  padding-bottom:1rem;
+}
+.dark .table-bordered td, .dark .table-bordered th {
+  border-width:1px;
+  --tw-border-opacity:1;
+  border-color:rgba(30, 31, 72, var(--tw-border-opacity));
+  padding-left:0.75rem;
+  padding-right:0.75rem;
+  padding-top:1rem;
+  padding-bottom:1rem;
+}
+.dark .table-bordered-bottom tr {
+  border-bottom-width:1px;
+  --tw-border-opacity:1;
+  border-color:rgba(30, 31, 72, var(--tw-border-opacity));
+}
+.table-bordered-bottom tbody tr:last-child, .dark .table-bordered-bottom tbody tr:last-child {
+  border-bottom: none;
+}
+.table-sm td, .table-sm th {
+  padding-left:0.5rem;
+  padding-right:0.5rem;
+  padding-top:0.75rem;
+  padding-bottom:0.75rem;
+}

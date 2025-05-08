@@ -1,0 +1,22 @@
+/* Devices  */
+.pb-devices {
+  padding-bottom:66%;
+}
+.macpath {
+  height:80%;
+  width:80%;
+  transform:translate(96px, 40px);
+}
+.ippath {
+  height: 92%;
+  width: 100%;
+  transform: translateY(30px);
+}
+.macrect {
+  width: 800px; 
+  height: 470px;
+}
+.iprect {
+  width: 380px;
+  height: 818px;
+}

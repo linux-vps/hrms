@@ -1,0 +1,57 @@
+/* Social media  */
+.btn-twitter, .btn-twitter:hover, .btn-twitter:focus {
+  background-color: #55acee !important;
+  border-color: #55acee !important;
+  @apply opacity-95 hover:opacity-100 inline-flex items-center;
+}
+.text-twitter {
+  color: #55acee;
+}
+.btn-facebook, .btn-facebook:hover, .btn-facebook:focus {
+  background-color: #3b5999 !important;
+  border-color: #3b5999 !important;
+  @apply opacity-95 hover:opacity-100 inline-flex items-center;
+}
+.text-facebook {
+  color: #3b5999;
+}
+.btn-instagram, .btn-instagram:hover, .btn-instagram:focus {
+  background-color: #e4405f !important;
+  border-color: #e4405f !important;
+  @apply opacity-95 hover:opacity-100 inline-flex items-center;
+}
+.text-instagram {
+  color: #e4405f;
+}
+.btn-youtube, .youtube:hover, .youtube:focus {
+  background-color: #cd201f !important;
+  border-color: #cd201f !important;
+  @apply opacity-95 hover:opacity-100 inline-flex items-center;
+}
+.text-youtube {
+  color: #cd201f;
+}
+.btn-linkedin, .btn-linkedin:hover, .btn-linkedin:focus {
+  background-color: #0077b5 !important;
+  border-color: #0077b5 !important;
+  @apply opacity-95 hover:opacity-100 inline-flex items-center;
+}
+.text-linkedin {
+  color: #0077b5;
+}
+.btn-tiktok, .btn-tiktok:hover, .btn-tiktok:focus {
+  background-color: #000000 !important;
+  border-color: #000000 !important;
+  @apply opacity-95 hover:opacity-100 inline-flex items-center;
+}
+.text-tiktok {
+  color: #000000;
+}
+.btn-whatsapp, .btn-whatsapp:hover, .btn-whatsapp:focus {
+  background-color: #25d366 !important;
+  border-color: #25d366 !important;
+  @apply opacity-95 hover:opacity-100 inline-flex items-center;
+}
+.text-whatsapp {
+  color: #25d366;
+}

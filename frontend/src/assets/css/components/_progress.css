@@ -1,0 +1,24 @@
+/* Circle progress */
+.circle-progress circle {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear;
+  stroke-width: 1em;
+}
+.circle-progress circle.circle-fill {
+  stroke-dashoffset: 376.99;
+}
+.circle-progress:after {
+  content: attr(data-percent)"%";
+  font-size: 1em;
+}
+.circle-progress.custom-after:after {
+  content:"";
+}
+.progress-horizontal {
+  width: 0;
+  transition: width 1s linear;
+}
+.progress-vertical {
+  height: 0;
+  transition: height 1s linear;
+}

@@ -1,0 +1,46 @@
+/* funnel  */
+.funnel-area li span{ 
+  border-top-width: 40px;
+  border-left: 12.5px solid transparent; 
+  border-right:12.5px solid transparent;
+}
+.funnel-area ul li:last-child span{
+  border-left:0;
+  border-right:0;
+}
+.funnel-area ul li.not_last span{
+  border-left: 5px solid transparent;
+  border-right:5px  solid transparent;
+}
+.funnel-area ul li span p{
+  margin-top: -30px;
+}
+.funnel-0 span{
+  width:100%; 
+  @apply border-indigo-300
+}
+.funnel-1 span{
+  width:calc(100% - 25px); 
+  @apply border-indigo-400
+}
+.funnel-2 span{
+  width:calc(100% - 50px); 
+  @apply border-indigo-500}
+.funnel-3 span{
+  width:calc(100% - 75px); 
+  @apply border-indigo-600
+}
+.funnel-4 span{
+  width:calc(100% - 100px); 
+  @apply border-indigo-700
+}
+.funnel-5 span{
+  width:calc(100% - 125px); 
+  @apply border-indigo-800
+}
+.bg-funnel-0 {@apply bg-indigo-300}
+.bg-funnel-1 {@apply bg-indigo-400}
+.bg-funnel-2 {@apply bg-indigo-500}
+.bg-funnel-3 {@apply bg-indigo-600}
+.bg-funnel-4 {@apply bg-indigo-700}
+.bg-funnel-5 {@apply bg-indigo-800}

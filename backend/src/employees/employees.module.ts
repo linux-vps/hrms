@@ -3,23 +3,21 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { Employee } from './entities/employee.entity';
+import { Employee, SalaryHistory } from './entities';
 import { Department } from 'src/departments/entities/department.entity';
 import { User } from 'src/auth/entities/user.entity';
 import { EmployeeController } from './controllers/employee.controller';
 import { EmployeeService } from './services/employee.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Employee, Department, User]),
+    TypeOrmModule.forFeature([Employee, SalaryHistory, Department, User]),
     MulterModule.register({
       storage: diskStorage({
         destination: './uploads/avatars',
         filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
+          const randomName = uuidv4();
           cb(null, `${randomName}${extname(file.originalname)}`);
         },
       }),

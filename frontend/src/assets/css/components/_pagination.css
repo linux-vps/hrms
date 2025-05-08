@@ -1,0 +1,10 @@
+/* pagination */
+.pagination-nav li.active > a{
+  @apply bg-indigo-100 dark:bg-indigo-200 text-indigo-500;
+}
+.pagination-nav .page-item:first-child a {
+  @apply ltr:rounded-l rtl:rounded-r;
+}
+.pagination-nav .page-item:last-child a {
+  @apply ltr:rounded-r rtl:rounded-l;
+}

@@ -1,0 +1,28 @@
+/* prism js  */
+pre.prism-code {
+  border-radius: 10px;
+  padding: 0 1rem;
+  overflow: auto;
+}
+code {font-size: .85em;}
+.token.module, .token.keyword {
+  color: #a87ab6 !important;
+}
+.token.imports {
+  color: #a5a5a5 !important;
+}
+.token.function {
+  color: #4ea8ea !important
+}
+.token.string {
+  color: #95ad4a !important;
+}
+.token.tag.class-name {
+  color: #e36161 !important
+}
+.token.plain {
+  color: #e3904f;
+}
+.token.plain-text {
+  color: #cccccc;
+}

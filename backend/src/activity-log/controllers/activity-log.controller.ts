@@ -8,7 +8,7 @@ import { createSuccessResponse } from 'src/common/dtos/api-response.dto';
 /**
  * Controller xử lý nhật ký hoạt động
  */
-@ApiTags('Nhật ký hoạt động')
+@ApiTags('ActivityLog')
 @ApiBearerAuth('JWT-auth')
 @Controller('activity-log')
 export class ActivityLogController {

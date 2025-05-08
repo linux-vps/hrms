@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "baseUrl": "./src",
+    "paths": {
+      "@/assets/*": ["./routes/*"],
+      "@/components/*": ["./components/*"],
+      "@/documentation/*": ["./routes/*"],
+      "@/layouts/*": ["./pages/*"],
+      "@/views/app/*": ["./views/app/*"],
+      "@/views/authentication/*": ["./views/authentication/*"],
+      "@/views/dashboard/*": ["./views/dashboard/*"],
+      "@/views/ecommerce/*": ["./views/ecommerce/*"],
+      "@/views/layouts/*": ["./views/layouts/*"],
+      "@/views/pages/*": ["./views/pages/*"],
+      "@/views/project/*": ["./views/project/*"],
+      "@/views//*": ["./views//*"],
+    },
+  },
+}

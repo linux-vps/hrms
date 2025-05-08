@@ -8,6 +8,7 @@ import { PaginationDto, PaginatedResultDto } from 'src/common/dtos/pagination.dt
 import { User } from 'src/auth/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { UserRole } from 'src/common/types/enums.type';
+import { SalaryHistory } from '../entities/salary-history.entity';
 
 /**
  * Service xử lý nhân viên
@@ -21,6 +22,8 @@ export class EmployeeService {
     private readonly departmentRepository: Repository<Department>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(SalaryHistory)
+    private readonly salaryHistoryRepository: Repository<SalaryHistory>,
   ) {}
 
   /**
@@ -183,24 +186,72 @@ export class EmployeeService {
   
 
   /**
-   * Cập nhật lương nhân viên
+   * Cập nhật lương nhân viên và lưu lịch sử thay đổi
    * @param id ID nhân viên
-   * @param updateSalaryDto Thông tin lương mới
-   * @returns Nhân viên đã cập nhật
+   * @param salary Lương mới
+   * @param reason Lý do thay đổi lương
+   * @param userId ID người thực hiện
+   * @returns Thông tin nhân viên đã cập nhật
    */
-  async updateSalary(
-    id: string,
-    updateSalaryDto: UpdateSalaryDto,
-  ): Promise<Employee> {
-    const { salary } = updateSalaryDto;
+  async updateSalary(id: string, salary: number, reason: string, userId: string) {
+    // Kiểm tra quyền truy cập
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    if (!user) {
+      throw new NotFoundException('Không tìm thấy người dùng');
+    }
+    
+    if (user.role !== UserRole.ADMIN) {
+      throw new BadRequestException('Bạn không có quyền cập nhật lương nhân viên');
+    }
     
     // Kiểm tra nhân viên tồn tại
-    const employee = await this.findById(id);
+    const employee = await this.employeeRepository.findOne({
+      where: { id },
+    });
+    if (!employee) {
+      throw new NotFoundException('Không tìm thấy nhân viên');
+    }
     
-    // Cập nhật lương
+    // Lưu lịch sử thay đổi lương
+    const salaryHistory = this.salaryHistoryRepository.create({
+      employeeId: id,
+      previousSalary: employee.salary,
+      newSalary: salary,
+      effectiveDate: new Date(),
+      reason,
+      changedById: userId,
+    });
+    
+    await this.salaryHistoryRepository.save(salaryHistory);
+    
+    // Cập nhật lương nhân viên
     employee.salary = salary;
     
-    return this.employeeRepository.save(employee);
+    return await this.employeeRepository.save(employee);
+  }
+
+  /**
+   * Lấy lịch sử thay đổi lương của nhân viên
+   * @param id ID nhân viên
+   * @returns Danh sách lịch sử thay đổi lương
+   */
+  async getSalaryHistory(id: string) {
+    // Kiểm tra nhân viên tồn tại
+    const employee = await this.employeeRepository.findOne({
+      where: { id },
+    });
+    if (!employee) {
+      throw new NotFoundException('Không tìm thấy nhân viên');
+    }
+    
+    // Lấy lịch sử thay đổi lương
+    const salaryHistory = await this.salaryHistoryRepository.find({
+      where: { employeeId: id },
+      relations: ['changedBy'],
+      order: { effectiveDate: 'DESC' },
+    });
+    
+    return salaryHistory;
   }
 
   /**
