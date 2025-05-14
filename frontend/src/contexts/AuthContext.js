@@ -46,11 +46,19 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('user');
-    delete axiosInstance.defaults.headers.common['Authorization'];
-    setUser(null);
+    console.log('AuthContext: Đang đăng xuất...');
+    try {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userRole');
+      localStorage.removeItem('user');
+      delete axiosInstance.defaults.headers.common['Authorization'];
+      setUser(null);
+      console.log('AuthContext: Đã đăng xuất thành công');
+      return true;
+    } catch (error) {
+      console.error('AuthContext: Lỗi khi đăng xuất', error);
+      return false;
+    }
   };
 
   const value = {

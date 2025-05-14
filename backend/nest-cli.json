@@ -8,6 +8,10 @@
       {
         "include": "modules/payroll/config/**/*",
         "outDir": "dist/src/modules/payroll/config"
+      },
+      {
+        "include": "templates/**/*",
+        "outDir": "dist/src"
       }
     ]
   }

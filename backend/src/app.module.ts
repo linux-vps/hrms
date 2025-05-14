@@ -12,7 +12,10 @@ import { QRCodeModule } from './modules/qrcode/qrcode.module';
 import { HelperModule } from './common/services/helper.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { RequestContextMiddleware } from './common/middleware/request-context.middleware';
-
+import { MailModule } from './modules/mail/mail.module';
+import { OtpModule } from './modules/otp/otp.module';
+import { ProjectModule } from './modules/project/project.module';
+import { TaskModule } from './modules/task/task.module';
 
 @Module({
   imports: [
@@ -36,6 +39,10 @@ import { RequestContextMiddleware } from './common/middleware/request-context.mi
     TimekeepingModule,
     QRCodeModule,
     HelperModule,
+    MailModule,
+    OtpModule,
+    ProjectModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],

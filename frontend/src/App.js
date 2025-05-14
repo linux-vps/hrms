@@ -21,6 +21,8 @@ import PrivateRoute from './components/PrivateRoute';
 import SalaryCalculation from './pages/manager/SalaryCalculation';
 import PayrollList from './pages/manager/PayrollList';
 import EmployeePayroll from './pages/employee/EmployeePayroll';
+import ProjectList from './pages/manager/ProjectList';
+import TaskList from './pages/manager/TaskList';
 
 function App() {
   return (
@@ -48,6 +50,8 @@ function App() {
           }>
             <Route index element={<ManagerDashboard />} />
             <Route path="employees" element={<EmployeeList />} />
+            <Route path="projects" element={<ProjectList />} />
+            <Route path="projects/:projectId/tasks" element={<TaskList />} />
             <Route path="shifts" element={<ShiftList />} />
             <Route path="timekeeping" element={<Timekeeping />} />
             <Route path="attendance" element={<Attendance />} />

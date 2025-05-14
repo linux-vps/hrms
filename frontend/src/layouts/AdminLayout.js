@@ -1,23 +1,26 @@
-import React, { useEffect } from 'react';
-import { Link, Outlet, useLocation} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './AdminLayout.css';
 
 
 const AdminLayout = () => {
   const location = useLocation();
-
+  const navigate = useNavigate();
   const { user } = useAuth();
+  console.log("Current user:", user);
+  
   const isAdmin = user?.role === 'admin';
   const isManager = user?.role === 'manager';
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       const dropdown = document.querySelector('.dropdown-menu');
       const profileButton = document.querySelector('.nav-profile');
       
-      if (dropdown && !profileButton.contains(event.target)) {
-        dropdown.classList.remove('show');
+      if (dropdown && !dropdown.contains(event.target) && !profileButton.contains(event.target)) {
+        setIsDropdownOpen(false);
       }
     };
 
@@ -31,7 +34,31 @@ const AdminLayout = () => {
   const toggleDropdown = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    document.querySelector('.dropdown-menu').classList.toggle('show');
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleLogout = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    console.log('Đăng xuất...');
+    try {
+      // Triển khai trực tiếp phương thức đăng xuất
+      localStorage.removeItem('token');
+      localStorage.removeItem('userRole');
+      localStorage.removeItem('user');
+      console.log('Đã xóa localStorage, chuyển hướng về login');
+      navigate('/login');
+    } catch (error) {
+      console.error('Lỗi khi đăng xuất:', error);
+    }
+  };
+
+  // Để test
+  const testDirectLogout = () => {
+    console.log('Test đăng xuất trực tiếp');
+    handleLogout();
   };
 
   return (
@@ -45,6 +72,7 @@ const AdminLayout = () => {
           <i className="bi bi-list toggle-sidebar-btn" 
              onClick={() => document.body.classList.toggle('toggle-sidebar')}></i>
         </div>
+
 
         <nav className="header-nav ms-auto">
           <ul className="d-flex align-items-center">
@@ -63,7 +91,7 @@ const AdminLayout = () => {
                 </div>
               </a>
 
-              <ul className="dropdown-menu dropdown-menu-arrow profile">
+              <ul className={`dropdown-menu dropdown-menu-arrow profile ${isDropdownOpen ? 'show' : ''}`}>
                 <li className="dropdown-header">
                   <h6>{user?.fullName || (isAdmin ? 'Admin' : 'Manager')}</h6>
                   <span>{isAdmin ? 'Administrator' : isManager ? 'Manager' : 'User'}</span>
@@ -71,7 +99,25 @@ const AdminLayout = () => {
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
-               
+                <li>
+                  <div className="dropdown-item d-flex align-items-center" style={{cursor: 'pointer'}}>
+                    <button 
+                      onClick={handleLogout}
+                      style={{ 
+                        border: 'none', 
+                        background: 'none', 
+                        width: '100%', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        padding: 0,
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <i className="bi bi-box-arrow-right"></i>
+                      <span style={{marginLeft: '10px'}}>Đăng xuất</span>
+                    </button>
+                  </div>
+                </li>
               </ul>
             </li>
           </ul>
@@ -123,6 +169,16 @@ const AdminLayout = () => {
                 >
                   <i className="bi bi-people"></i>
                   <span>Quản lý nhân viên</span>
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link 
+                  className={`nav-link ${location.pathname === '/manager/projects' ? '' : 'collapsed'}`}
+                  to="/manager/projects"
+                >
+                  <i className="bi bi-kanban"></i>
+                  <span>Quản lý dự án</span>
                 </Link>
               </li>
 
@@ -188,6 +244,25 @@ const AdminLayout = () => {
               </li>
             </>
           )}
+
+          {/* Thêm nút đăng xuất ở sidebar */}
+          <li className="nav-item" style={{marginTop: '30px'}}>
+            <button 
+              className="nav-link collapsed w-100 d-flex"
+              onClick={testDirectLogout}
+              style={{
+                border: 'none',
+                background: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                padding: '10px 15px',
+                color: '#012970',
+              }}
+            >
+              <i className="bi bi-box-arrow-right"></i>
+              <span style={{marginLeft: '5px'}}>Đăng xuất</span>
+            </button>
+          </li>
         </ul>
       </aside>
 
