@@ -1,0 +1,64 @@
+@startuml Thêm nhân viên mới
+title Trình tự thêm nhân viên mới
+
+actor "Quản trị viên" as Admin
+boundary "Giao diện quản lý\nnhân viên" as UI
+control "Employee Controller" as Controller
+entity "Employee" as EmployeeEntity
+entity "Department" as DepartmentEntity
+
+Admin -> UI: Truy cập trang quản lý nhân viên
+activate UI
+
+UI -> Controller: Lấy danh sách phòng ban
+activate Controller
+Controller -> DepartmentEntity: Truy vấn danh sách
+activate DepartmentEntity
+DepartmentEntity --> Controller: Trả về danh sách
+deactivate DepartmentEntity
+Controller --> UI: Trả về danh sách phòng ban
+deactivate Controller
+
+UI --> Admin: Hiển thị form thêm nhân viên mới
+deactivate UI
+
+Admin -> UI: Nhập thông tin nhân viên mới
+activate UI
+note right
+  - Họ tên
+  - Email
+  - Mật khẩu
+  - Vai trò
+  - Phòng ban
+  - Thông tin cá nhân khác
+end note
+
+UI -> Controller: Gửi thông tin nhân viên mới
+activate Controller
+
+Controller -> Controller: Xác thực dữ liệu
+
+Controller -> EmployeeEntity: Kiểm tra email đã tồn tại
+activate EmployeeEntity
+EmployeeEntity --> Controller: Kết quả kiểm tra
+deactivate EmployeeEntity
+
+alt Email chưa tồn tại
+    Controller -> Controller: Mã hóa mật khẩu
+    Controller -> EmployeeEntity: Tạo nhân viên mới
+    activate EmployeeEntity
+    EmployeeEntity --> Controller: Kết quả tạo
+    deactivate EmployeeEntity
+    
+    Controller --> UI: Thông báo thêm nhân viên thành công
+    UI --> Admin: Hiển thị thông báo thành công
+    UI --> Admin: Hiển thị danh sách nhân viên đã cập nhật
+else Email đã tồn tại
+    Controller --> UI: Trả về thông báo lỗi
+    UI --> Admin: Hiển thị thông báo lỗi
+end
+
+deactivate Controller
+deactivate UI
+
+@enduml 

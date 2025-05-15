@@ -1,0 +1,82 @@
+@startuml Theo dõi tiến độ công việc
+title Trình tự theo dõi tiến độ công việc
+
+actor "Người dùng" as User
+boundary "Giao diện quản lý công việc" as UI
+control "Task Controller" as Controller
+entity "Task" as TaskEntity
+entity "SubTask" as SubtaskEntity
+entity "Comment" as CommentEntity
+entity "Employee" as EmployeeEntity
+
+User -> UI: Truy cập trang quản lý công việc
+activate UI
+
+UI -> Controller: Yêu cầu danh sách công việc
+activate Controller
+
+Controller -> TaskEntity: Truy vấn danh sách công việc
+activate TaskEntity
+TaskEntity --> Controller: Trả về danh sách công việc
+deactivate TaskEntity
+
+Controller --> UI: Trả về danh sách công việc
+deactivate Controller
+
+UI --> User: Hiển thị danh sách công việc
+deactivate UI
+
+User -> UI: Chọn xem chi tiết một công việc
+activate UI
+
+UI -> Controller: Yêu cầu thông tin chi tiết công việc
+activate Controller
+
+Controller -> TaskEntity: Truy vấn công việc theo ID
+activate TaskEntity
+TaskEntity --> Controller: Trả về thông tin công việc
+deactivate TaskEntity
+
+Controller -> SubtaskEntity: Truy vấn công việc con
+activate SubtaskEntity
+SubtaskEntity --> Controller: Trả về danh sách công việc con
+deactivate SubtaskEntity
+
+Controller -> CommentEntity: Truy vấn bình luận
+activate CommentEntity
+CommentEntity --> Controller: Trả về danh sách bình luận
+deactivate CommentEntity
+
+Controller -> EmployeeEntity: Truy vấn thông tin người thực hiện
+activate EmployeeEntity
+EmployeeEntity --> Controller: Trả về thông tin người thực hiện
+deactivate EmployeeEntity
+
+Controller --> UI: Trả về thông tin chi tiết công việc
+deactivate Controller
+
+UI --> User: Hiển thị thông tin chi tiết công việc
+UI --> User: Hiển thị tiến độ hoàn thành
+UI --> User: Hiển thị danh sách công việc con
+UI --> User: Hiển thị lịch sử bình luận
+deactivate UI
+
+User -> UI: Chọn cập nhật trạng thái công việc
+activate UI
+
+UI -> Controller: Gửi yêu cầu cập nhật trạng thái
+activate Controller
+
+Controller -> TaskEntity: Cập nhật trạng thái công việc
+activate TaskEntity
+TaskEntity --> Controller: Kết quả cập nhật
+deactivate TaskEntity
+
+Controller --> UI: Thông báo cập nhật thành công
+UI --> User: Hiển thị thông báo thành công
+UI --> User: Hiển thị tiến độ cập nhật
+
+deactivate Controller
+deactivate UI
+
+@enduml 

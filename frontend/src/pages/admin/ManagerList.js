@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import DataTable from 'react-data-table-component';
 import { Modal } from 'bootstrap';
-import { getDepartments, getManagers, createManager, updateManager, deleteManager } from '../../services/api';
+import { getDepartments, getManagers, createManager, updateManager, deleteManager, impersonateUser } from '../../services/api';
 import { toast } from 'react-toastify';
-import { useAuth } from '../../contexts/AuthContext';
 
 const ManagerList = () => {
   const [managers, setManagers] = useState([]);
@@ -22,8 +21,6 @@ const ManagerList = () => {
   const addModalRef = useRef(null);
   const editModalRef = useRef(null);
   const deleteModalRef = useRef(null);
-
-  const { login } = useAuth();
 
   useEffect(() => {
     // Initialize Bootstrap modals
@@ -120,17 +117,30 @@ const ManagerList = () => {
 
   const handleAccess = async (row) => {
     try {
-      const result = await login(row.email, 'Manager123!');
-      if (result) {
-        toast.success('Đăng nhập thành công');
-        // Điều hướng đến trang quản lý sau khi đăng nhập thành công
-        // Ví dụ: navigate('/manager-dashboard');
+      const response = await impersonateUser(row.email);
+      if (response.data.success) {
+        // Lưu token vào localStorage
+        localStorage.setItem('token', response.data.data.access_token);
+        
+        // Lưu thêm thông tin người dùng
+        const userData = {
+          id: response.data.data.employee.id,
+          fullName: response.data.data.employee.fullName,
+          email: response.data.data.employee.email,
+          role: response.data.data.employee.role,
+          departmentId: response.data.data.employee.departmentId
+        };
+        localStorage.setItem('user', JSON.stringify(userData));
+        
+        toast.success('Đã truy cập với tư cách quản lý');
+        // Chuyển hướng đến trang quản lý
+        window.location.href = '/manager';
       } else {
-        toast.error('Đăng nhập thất bại');
+        toast.error('Truy cập thất bại');
       }
     } catch (error) {
-      toast.error('Lỗi khi đăng nhập');
-      console.error('Error during login:', error);
+      toast.error('Lỗi khi truy cập tài khoản quản lý');
+      console.error('Error during impersonation:', error);
     }
   };
 
@@ -191,6 +201,7 @@ const ManagerList = () => {
           >
             <i className="bi bi-box-arrow-in-right"></i> Truy cập
           </button>
+
         </>
       ),
     },

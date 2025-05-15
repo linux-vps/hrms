@@ -1,0 +1,61 @@
+@startuml Thêm phòng ban mới
+title Trình tự thêm phòng ban mới
+
+actor "Quản trị viên" as Admin
+boundary "Giao diện\nquản lý phòng ban" as UI
+control "Department Controller" as Controller
+entity "Department" as Entity
+
+Admin -> UI: Truy cập trang quản lý phòng ban
+activate UI
+
+UI --> Admin: Hiển thị danh sách phòng ban
+UI --> Admin: Hiển thị form thêm phòng ban
+deactivate UI
+
+Admin -> UI: Nhập thông tin phòng ban mới
+activate UI
+note right
+  - Tên phòng ban
+  - Mô tả
+  - Trạng thái hoạt động
+end note
+
+UI -> Controller: Gửi thông tin phòng ban mới
+activate Controller
+
+Controller -> Controller: Xác thực dữ liệu
+
+Controller -> Entity: Kiểm tra tên phòng ban đã tồn tại
+activate Entity
+Entity --> Controller: Kết quả kiểm tra
+deactivate Entity
+
+alt Tên phòng ban chưa tồn tại
+    Controller -> Entity: Tạo phòng ban mới
+    activate Entity
+    Entity --> Controller: Kết quả tạo
+    deactivate Entity
+    
+    Controller --> UI: Thông báo thêm phòng ban thành công
+    UI --> Admin: Hiển thị thông báo thành công
+    
+    UI -> Controller: Cập nhật danh sách phòng ban
+    activate Controller
+    Controller -> Entity: Truy vấn danh sách
+    activate Entity
+    Entity --> Controller: Trả về danh sách cập nhật
+    deactivate Entity
+    Controller --> UI: Trả về danh sách cập nhật
+    deactivate Controller
+    
+    UI --> Admin: Hiển thị danh sách phòng ban đã cập nhật
+else Tên phòng ban đã tồn tại
+    Controller --> UI: Trả về thông báo lỗi
+    UI --> Admin: Hiển thị thông báo lỗi
+end
+
+deactivate Controller
+deactivate UI
+
+@enduml 

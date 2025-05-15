@@ -1,0 +1,70 @@
+@startuml Chấm công vào ca
+title Trình tự chấm công vào ca làm việc
+
+actor "Nhân viên" as Employee
+boundary "Giao diện chấm công" as UI
+control "Timekeeping Controller" as Controller
+entity "Timekeeping" as TimekeepingEntity
+entity "Shift" as ShiftEntity
+entity "Employee" as EmployeeEntity
+
+Employee -> UI: Truy cập trang chấm công
+activate UI
+
+UI -> Controller: Yêu cầu thông tin ca làm việc
+activate Controller
+
+Controller -> EmployeeEntity: Lấy thông tin nhân viên
+activate EmployeeEntity
+EmployeeEntity --> Controller: Trả về thông tin nhân viên
+deactivate EmployeeEntity
+
+Controller -> ShiftEntity: Lấy thông tin ca làm việc hiện tại
+activate ShiftEntity
+ShiftEntity --> Controller: Trả về ca làm việc
+deactivate ShiftEntity
+
+Controller --> UI: Trả về thông tin ca làm việc
+deactivate Controller
+
+UI --> Employee: Hiển thị thông tin ca và nút chấm công
+deactivate UI
+
+Employee -> UI: Nhấn nút "Chấm công vào"
+activate UI
+
+UI -> Controller: Gửi yêu cầu chấm công vào
+activate Controller
+
+Controller -> Controller: Lấy thời gian hiện tại
+
+Controller -> ShiftEntity: Kiểm tra thời gian so với ca làm việc
+activate ShiftEntity
+ShiftEntity --> Controller: Kết quả kiểm tra
+deactivate ShiftEntity
+
+Controller -> TimekeepingEntity: Kiểm tra đã chấm công vào chưa
+activate TimekeepingEntity
+TimekeepingEntity --> Controller: Kết quả kiểm tra
+deactivate TimekeepingEntity
+
+alt Chưa chấm công vào
+    Controller -> Controller: Xác định trạng thái (đúng giờ/đi muộn)
+    
+    Controller -> TimekeepingEntity: Tạo bản ghi chấm công vào
+    activate TimekeepingEntity
+    TimekeepingEntity --> Controller: Kết quả tạo
+    deactivate TimekeepingEntity
+    
+    Controller --> UI: Thông báo chấm công thành công
+    UI --> Employee: Hiển thị thông báo thành công và giờ vào
+    
+else Đã chấm công vào
+    Controller --> UI: Thông báo đã chấm công vào rồi
+    UI --> Employee: Hiển thị thông báo lỗi
+end
+
+deactivate Controller
+deactivate UI
+
+@enduml 

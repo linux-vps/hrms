@@ -1,0 +1,40 @@
+@startuml Đăng nhập hệ thống
+title Trình tự đăng nhập hệ thống
+
+actor Người_dùng as User
+boundary "Giao diện đăng nhập" as UI
+control "Auth Controller" as Controller
+entity "Employee" as Entity
+
+User -> UI: Truy cập trang đăng nhập
+activate UI
+
+UI --> User: Hiển thị form đăng nhập
+deactivate UI
+
+User -> UI: Nhập email, mật khẩu
+activate UI
+
+UI -> Controller: Gửi thông tin đăng nhập
+activate Controller
+
+Controller -> Entity: Tìm kiếm nhân viên theo email
+activate Entity
+Entity --> Controller: Trả về thông tin nhân viên
+deactivate Entity
+
+Controller -> Controller: Kiểm tra mật khẩu
+
+alt Đăng nhập thành công
+    Controller -> Controller: Tạo JWT token
+    Controller --> UI: Trả về token và thông tin người dùng
+    UI --> User: Chuyển hướng đến trang chủ
+else Đăng nhập thất bại
+    Controller --> UI: Trả về thông báo lỗi
+    UI --> User: Hiển thị thông báo lỗi
+end
+
+deactivate Controller
+deactivate UI
+
+@enduml 

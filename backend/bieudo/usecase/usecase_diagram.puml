@@ -1,0 +1,91 @@
+@startuml Hệ thống Quản lý Nhân sự - Use Case Tổng quát
+
+' Định dạng
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #F5F5F5
+  BorderColor #333333
+  ArrowColor #333333
+}
+
+' Actor
+actor "Quản trị viên\n(ADMIN)" as admin
+actor "Quản lý\n(MANAGER)" as manager
+actor "Nhân viên\n(USER)" as user
+
+' Usecase chung
+rectangle "Hệ thống HRMS" {
+  ' Xác thực
+  usecase "Đăng nhập hệ thống" as UC_Login
+  usecase "Phân quyền người dùng" as UC_Authorization
+  
+  ' Quản lý thông tin cá nhân
+  usecase "Quản lý thông tin cá nhân" as UC_ManageProfile
+  
+  ' Quản lý phòng ban và nhân viên
+  usecase "Quản lý phòng ban" as UC_ManageDepartments
+  usecase "Quản lý nhân viên" as UC_ManageEmployees
+  
+  ' Quản lý chấm công
+  usecase "Quản lý ca làm việc" as UC_ManageShifts
+  usecase "Quản lý chấm công" as UC_ManageTimekeeping
+  usecase "Chấm công" as UC_Timekeeping
+  
+  ' Quản lý dự án
+  usecase "Quản lý dự án" as UC_ManageProjects
+  usecase "Phân công nhân viên vào dự án" as UC_AssignToProject
+  
+  ' Quản lý công việc
+  usecase "Quản lý công việc" as UC_ManageTasks
+  usecase "Giao việc cho nhân viên" as UC_AssignTasks
+  usecase "Theo dõi tiến độ công việc" as UC_TrackTasks
+  usecase "Quản lý công việc con" as UC_ManageSubtasks
+  usecase "Bình luận công việc" as UC_CommentTasks
+  
+  ' Quản lý lương
+  usecase "Quản lý bảng lương" as UC_ManageSalary
+  
+  ' Báo cáo
+  usecase "Xem báo cáo thống kê" as UC_ViewReports
+}
+
+' Mối quan hệ
+' Admin
+admin --> UC_Login
+admin --> UC_Authorization
+admin --> UC_ManageDepartments
+admin --> UC_ManageEmployees
+admin --> UC_ManageShifts
+admin --> UC_ManageTimekeeping
+admin --> UC_ManageSalary
+admin --> UC_ViewReports
+admin --> UC_ManageProjects
+admin --> UC_ManageTasks
+
+' Manager
+manager --> UC_Login
+manager --> UC_ManageProfile
+manager --> UC_ManageTimekeeping
+manager --> UC_Timekeeping
+manager --> UC_ViewReports
+manager --> UC_ManageProjects
+manager --> UC_AssignToProject
+manager --> UC_ManageTasks
+manager --> UC_AssignTasks
+manager --> UC_TrackTasks
+manager --> UC_ManageSubtasks
+manager --> UC_CommentTasks
+
+' User
+user --> UC_Login
+user --> UC_ManageProfile
+user --> UC_Timekeeping
+user --> UC_TrackTasks
+user --> UC_ManageSubtasks
+user --> UC_CommentTasks
+
+' Kế thừa
+admin --|> manager
+manager --|> user
+
+@enduml 
