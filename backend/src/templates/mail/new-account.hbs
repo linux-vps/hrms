@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin tài khoản mới</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .credentials {
+            background-color: #fff;
+            border: 1px solid #eee;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .credentials p {
+            margin: 5px 0;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Hệ thống quản lý chấm công</h2>
+        </div>
+        <div class="content">
+            <h3>Xin chào {{fullName}},</h3>
+            <p>Tài khoản của bạn đã được tạo thành công trên hệ thống quản lý chấm công.</p>
+            <p>Dưới đây là thông tin đăng nhập của bạn:</p>
+            
+            <div class="credentials">
+                <p><strong>Email:</strong> {{email}}</p>
+                <p><strong>Mật khẩu:</strong> {{password}}</p>
+            </div>
+            
+            <p>Để đảm bảo an toàn, vui lòng đổi mật khẩu sau khi đăng nhập lần đầu.</p>
+            
+            <p>Bạn có thể đăng nhập bằng cách nhấn vào nút bên dưới:</p>
+            <a href="{{loginUrl}}" class="button">Đăng nhập</a>
+            
+            <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với quản trị viên.</p>
+            
+            <p>Trân trọng,<br>Hệ thống quản lý chấm công</p>
+        </div>
+        <div class="footer">
+            <p>Email này được gửi tự động. Vui lòng không trả lời.</p>
+        </div>
+    </div>
+</body>
+</html> 

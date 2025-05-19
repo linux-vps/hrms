@@ -1,0 +1,70 @@
+@startuml Chấm công ra ca
+title Trình tự chấm công ra ca làm việc
+
+actor "Nhân viên" as Employee
+boundary "Giao diện chấm công" as UI
+control "Timekeeping Controller" as Controller
+entity "Timekeeping" as TimekeepingEntity
+entity "Shift" as ShiftEntity
+entity "Employee" as EmployeeEntity
+
+Employee -> UI: Truy cập trang chấm công
+activate UI
+
+UI -> Controller: Yêu cầu thông tin chấm công hiện tại
+activate Controller
+
+Controller -> EmployeeEntity: Lấy thông tin nhân viên
+activate EmployeeEntity
+EmployeeEntity --> Controller: Trả về thông tin nhân viên
+deactivate EmployeeEntity
+
+Controller -> TimekeepingEntity: Kiểm tra bản ghi chấm công hôm nay
+activate TimekeepingEntity
+TimekeepingEntity --> Controller: Trả về bản ghi (nếu có)
+deactivate TimekeepingEntity
+
+Controller --> UI: Trả về thông tin chấm công
+deactivate Controller
+
+UI --> Employee: Hiển thị thông tin chấm công và nút chấm công ra
+deactivate UI
+
+Employee -> UI: Nhấn nút "Chấm công ra"
+activate UI
+
+UI -> Controller: Gửi yêu cầu chấm công ra
+activate Controller
+
+Controller -> Controller: Lấy thời gian hiện tại
+
+Controller -> TimekeepingEntity: Kiểm tra đã chấm công vào chưa
+activate TimekeepingEntity
+TimekeepingEntity --> Controller: Kết quả kiểm tra
+deactivate TimekeepingEntity
+
+alt Đã chấm công vào
+    Controller -> ShiftEntity: Kiểm tra thời gian so với ca làm việc
+    activate ShiftEntity
+    ShiftEntity --> Controller: Kết quả kiểm tra
+    deactivate ShiftEntity
+    
+    Controller -> Controller: Xác định trạng thái (đúng giờ/về sớm)
+    
+    Controller -> TimekeepingEntity: Cập nhật bản ghi chấm công
+    activate TimekeepingEntity
+    TimekeepingEntity --> Controller: Kết quả cập nhật
+    deactivate TimekeepingEntity
+    
+    Controller --> UI: Thông báo chấm công ra thành công
+    UI --> Employee: Hiển thị thông báo thành công và giờ ra
+    
+else Chưa chấm công vào
+    Controller --> UI: Thông báo chưa chấm công vào
+    UI --> Employee: Hiển thị thông báo lỗi
+end
+
+deactivate Controller
+deactivate UI
+
+@enduml 

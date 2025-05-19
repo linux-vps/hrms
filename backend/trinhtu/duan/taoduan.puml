@@ -1,0 +1,86 @@
+@startuml Tạo dự án mới
+title Trình tự tạo dự án mới
+
+actor "Quản lý" as Manager
+boundary "Giao diện quản lý dự án" as UI
+control "Project Controller" as Controller
+entity "Project" as ProjectEntity
+entity "Department" as DepartmentEntity
+entity "Employee" as EmployeeEntity
+
+Manager -> UI: Truy cập trang quản lý dự án
+activate UI
+
+UI -> Controller: Yêu cầu dữ liệu cần thiết
+activate Controller
+
+Controller -> DepartmentEntity: Lấy danh sách phòng ban
+activate DepartmentEntity
+DepartmentEntity --> Controller: Trả về danh sách phòng ban
+deactivate DepartmentEntity
+
+Controller -> EmployeeEntity: Lấy danh sách nhân viên
+activate EmployeeEntity
+EmployeeEntity --> Controller: Trả về danh sách nhân viên
+deactivate EmployeeEntity
+
+Controller --> UI: Trả về dữ liệu cần thiết
+deactivate Controller
+
+UI --> Manager: Hiển thị form tạo dự án
+deactivate UI
+
+Manager -> UI: Nhập thông tin dự án
+activate UI
+note right
+  - Tên dự án
+  - Mô tả
+  - Ngày bắt đầu/kết thúc
+  - Phòng ban phụ trách
+  - Người quản lý
+  - Thành viên
+end note
+
+UI -> Controller: Gửi thông tin dự án mới
+activate Controller
+
+Controller -> Controller: Xác thực dữ liệu
+
+Controller -> ProjectEntity: Kiểm tra tên dự án đã tồn tại
+activate ProjectEntity
+ProjectEntity --> Controller: Kết quả kiểm tra
+deactivate ProjectEntity
+
+alt Tên dự án chưa tồn tại
+    Controller -> ProjectEntity: Tạo dự án mới
+    activate ProjectEntity
+    ProjectEntity --> Controller: Kết quả tạo
+    deactivate ProjectEntity
+    
+    Controller -> ProjectEntity: Thêm thành viên vào dự án
+    activate ProjectEntity
+    ProjectEntity --> Controller: Kết quả thêm thành viên
+    deactivate ProjectEntity
+    
+    Controller --> UI: Thông báo tạo dự án thành công
+    UI --> Manager: Hiển thị thông báo thành công
+    
+    UI -> Controller: Lấy danh sách dự án cập nhật
+    activate Controller
+    Controller -> ProjectEntity: Truy vấn danh sách dự án
+    activate ProjectEntity
+    ProjectEntity --> Controller: Trả về danh sách cập nhật
+    deactivate ProjectEntity
+    Controller --> UI: Trả về danh sách dự án
+    deactivate Controller
+    
+    UI --> Manager: Hiển thị danh sách dự án đã cập nhật
+else Tên dự án đã tồn tại
+    Controller --> UI: Trả về thông báo lỗi
+    UI --> Manager: Hiển thị thông báo lỗi
+end
+
+deactivate Controller
+deactivate UI
+
+@enduml 

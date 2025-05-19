@@ -1,0 +1,49 @@
+@startuml Xem thông tin nhân viên
+title Trình tự xem thông tin nhân viên
+
+actor "Người dùng" as User
+boundary "Giao diện\nquản lý nhân viên" as UI
+control "Employee Controller" as Controller
+entity "Employee" as EmployeeEntity
+entity "Department" as DepartmentEntity
+
+User -> UI: Truy cập trang quản lý nhân viên
+activate UI
+
+UI -> Controller: Yêu cầu danh sách nhân viên
+activate Controller
+
+Controller -> EmployeeEntity: Truy vấn danh sách nhân viên
+activate EmployeeEntity
+EmployeeEntity --> Controller: Trả về danh sách
+deactivate EmployeeEntity
+
+Controller --> UI: Trả về danh sách nhân viên
+deactivate Controller
+
+UI --> User: Hiển thị danh sách nhân viên
+deactivate UI
+
+User -> UI: Chọn xem chi tiết một nhân viên
+activate UI
+
+UI -> Controller: Yêu cầu thông tin chi tiết nhân viên
+activate Controller
+
+Controller -> EmployeeEntity: Truy vấn nhân viên theo ID
+activate EmployeeEntity
+EmployeeEntity --> Controller: Trả về thông tin nhân viên
+deactivate EmployeeEntity
+
+Controller -> DepartmentEntity: Truy vấn thông tin phòng ban
+activate DepartmentEntity
+DepartmentEntity --> Controller: Trả về thông tin phòng ban
+deactivate DepartmentEntity
+
+Controller --> UI: Trả về thông tin chi tiết nhân viên
+deactivate Controller
+
+UI --> User: Hiển thị thông tin chi tiết nhân viên
+deactivate UI
+
+@enduml 

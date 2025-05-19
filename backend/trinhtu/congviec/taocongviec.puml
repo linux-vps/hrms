@@ -1,0 +1,79 @@
+@startuml Tạo công việc mới
+title Trình tự tạo công việc mới
+
+actor "Quản lý" as Manager
+boundary "Giao diện quản lý công việc" as UI
+control "Task Controller" as Controller
+entity "Task" as TaskEntity
+entity "Project" as ProjectEntity
+entity "Employee" as EmployeeEntity
+
+Manager -> UI: Truy cập trang quản lý công việc
+activate UI
+
+UI -> Controller: Yêu cầu dữ liệu cần thiết
+activate Controller
+
+Controller -> ProjectEntity: Lấy danh sách dự án
+activate ProjectEntity
+ProjectEntity --> Controller: Trả về danh sách dự án
+deactivate ProjectEntity
+
+Controller -> EmployeeEntity: Lấy danh sách nhân viên
+activate EmployeeEntity
+EmployeeEntity --> Controller: Trả về danh sách nhân viên
+deactivate EmployeeEntity
+
+Controller --> UI: Trả về dữ liệu cần thiết
+deactivate Controller
+
+UI --> Manager: Hiển thị form tạo công việc
+deactivate UI
+
+Manager -> UI: Nhập thông tin công việc
+activate UI
+note right
+  - Tiêu đề công việc
+  - Mô tả
+  - Trạng thái
+  - Mức độ ưu tiên
+  - Ngày bắt đầu/hạn chót
+  - Dự án liên quan
+  - Người giao việc
+  - Người giám sát
+  - Người thực hiện
+end note
+
+UI -> Controller: Gửi thông tin công việc mới
+activate Controller
+
+Controller -> Controller: Xác thực dữ liệu
+
+Controller -> TaskEntity: Tạo công việc mới
+activate TaskEntity
+TaskEntity --> Controller: Kết quả tạo
+deactivate TaskEntity
+
+Controller -> TaskEntity: Thêm người thực hiện vào công việc
+activate TaskEntity
+TaskEntity --> Controller: Kết quả thêm người thực hiện
+deactivate TaskEntity
+
+Controller --> UI: Thông báo tạo công việc thành công
+UI --> Manager: Hiển thị thông báo thành công
+
+UI -> Controller: Lấy danh sách công việc cập nhật
+activate Controller
+Controller -> TaskEntity: Truy vấn danh sách công việc
+activate TaskEntity
+TaskEntity --> Controller: Trả về danh sách cập nhật
+deactivate TaskEntity
+Controller --> UI: Trả về danh sách công việc
+deactivate Controller
+
+UI --> Manager: Hiển thị danh sách công việc đã cập nhật
+
+deactivate Controller
+deactivate UI
+
+@enduml 

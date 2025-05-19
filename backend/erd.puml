@@ -1,0 +1,135 @@
+@startuml Hệ thống Chấm công ERD
+
+' Styling
+skinparam class {
+  BackgroundColor #F5F5F5
+  ArrowColor #333333
+  BorderColor #333333
+}
+
+skinparam linetype ortho
+skinparam packageStyle rectangle
+
+enum VaiTro {
+  QUANTRI
+  NGUOIDUNG
+  QUANLY
+}
+
+enum ChucVu {
+  CEO
+  CTO
+  CFO
+  GIAMDOC
+  QUANLY
+  TRUONGNHOM
+  CHINHNHAN
+  NHANDAN
+  THUCTAP
+  KHAC
+}
+
+enum TrinhDoHocVan {
+  TIENSI
+  THACSI
+  DAIHOC
+  CAODANG
+  PHOTHONG
+  KHAC
+}
+
+entity "PhongBan" as pb {
+  * id : UUID <<PK>>
+  --
+  * tenPhongBan : String
+  moTa : String
+  * hoatDong : Boolean = true
+}
+
+entity "NhanVien" as nv {
+  * id : UUID <<PK>>
+  --
+  hoTen : String
+  * matKhau : String  
+  anhDaiDien : String
+  soDienThoai : String
+  * email : String
+  ngaySinh : Date
+  * hoatDong : Boolean = true
+  * vaiTro : VaiTro = NGUOIDUNG
+  idPhongBan : UUID <<FK>>
+  diaChi : String
+  soCMND : String
+  ngayVaoLam : Date
+  chucVu : ChucVu
+  trinhDoHocVan : TrinhDoHocVan
+  kinhNghiemLamViec : Text
+  luongCoBan : Decimal(15,2)
+  soTaiKhoan : String
+  tenNganHang : String
+  maSoThue : String
+  maSoBaoHiem : String
+}
+
+entity "CaLamViec" as ca {
+  * id : UUID <<PK>>
+  --
+  * tenCa : String
+  * gioBatDau : Time
+  * gioKetThuc : Time
+  * hoatDong : Boolean = true
+  idPhongBan : UUID <<FK>>
+}
+
+entity "ChamCong" as chamcong {
+  * id : UUID <<PK>>
+  --
+  * ngay : Date
+  * gioVao : Time
+  gioRa : Time
+  * diMuon : Boolean = false
+  * veSom : Boolean = false
+  ghiChu : String
+  * nhanVien : <<FK>>
+  * caLamViec : <<FK>>
+}
+
+entity "BangLuong" as luong {
+  * id : UUID <<PK>>
+  --
+  * idNhanVien : UUID <<FK>>
+  * thang : Integer
+  * nam : Integer
+  * luongCoBan : Decimal(15,2)
+  * ngayCong : Decimal(5,1)
+  * tongNgayCong : Integer = 22
+  * gioLamThem : Decimal(5,1) = 0
+  * tienCongGio : Decimal(15,2) = 0
+  * heSoLamThem : Decimal(5,2) = 1.5
+  * luongTheoNgayCong : Decimal(15,2)
+  * luongLamThem : Decimal(15,2) = 0
+  * phuCapBatBuoc : Decimal(15,2) = 0
+  * thuongBoSung : Decimal(15,2) = 0
+  * khauTruBatBuoc : Decimal(15,2) = 0
+  * phatBoSung : Decimal(15,2) = 0
+  * phuCapChucVu : Decimal(15,2) = 0
+  * tongLuong : Decimal(15,2)
+  chiTietThuong : JSON
+  chiTietPhat : JSON
+  * trangThai : Enum ['choXetDuyet', 'daDuyet', 'daThanhToan'] = 'choXetDuyet'
+  ngayThanhToan : Timestamp
+  ghiChu : Text
+  * taoLuc : Timestamp
+  * capNhatLuc : Timestamp
+}
+
+' Relationships
+pb "1" --o "0..*" nv : quanLy >
+pb "1" --o "0..*" ca : coCa >
+
+nv "1" --o "0..*" chamcong : chamCong >
+ca "1" --o "0..*" chamcong : duocChamCong >
+
+nv "1" --o "0..*" luong : nhanLuong >
+
+@enduml 
