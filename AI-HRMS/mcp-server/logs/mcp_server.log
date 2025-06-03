@@ -1,0 +1,69 @@
+2025-06-03 20:13:04,426 - INFO - Using database connection from environment variable
+2025-06-03 20:13:04,487 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 20:13:04,487 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 20:13:04,488 - INFO -    All database operations will use this connection.
+2025-06-03 20:13:04,917 - INFO - Using database connection from environment variable
+2025-06-03 20:13:04,979 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 20:13:04,979 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 20:13:04,979 - INFO -    All database operations will use this connection.
+2025-06-03 20:13:35,001 - INFO - Received tool execution request: tool='get_employee_info', params={'employee_id': '4abc59ac-d825-4c2e-93f9-8e0a1cc44455'}
+2025-06-03 20:13:35,002 - INFO - Using database connection from environment variable
+2025-06-03 20:13:35,079 - INFO - Successfully retrieved comprehensive employee info for employee ID 4abc59ac-d825-4c2e-93f9-8e0a1cc44455
+2025-06-03 20:13:35,079 - INFO - Sending tool execution response (status=200)
+2025-06-03 20:13:57,437 - INFO - Received tool execution request: tool='get_employee_info', params={'employee_id': '4abc59ac-d825-4c2e-93f9-8e0a1cc44455'}
+2025-06-03 20:13:57,437 - INFO - Using database connection from environment variable
+2025-06-03 20:13:57,508 - INFO - Successfully retrieved comprehensive employee info for employee ID 4abc59ac-d825-4c2e-93f9-8e0a1cc44455
+2025-06-03 20:13:57,508 - INFO - Sending tool execution response (status=200)
+2025-06-03 20:33:37,497 - INFO - Using database connection from environment variable
+2025-06-03 20:33:37,563 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 20:33:37,563 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 20:33:37,563 - INFO -    All database operations will use this connection.
+2025-06-03 20:33:38,000 - INFO - Using database connection from environment variable
+2025-06-03 20:33:38,066 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 20:33:38,066 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 20:33:38,066 - INFO -    All database operations will use this connection.
+2025-06-03 20:33:54,002 - INFO - Received tool execution request: tool='get_employee_info', params={'employee_id': '4abc59ac-d825-4c2e-93f9-8e0a1cc44455'}
+2025-06-03 20:33:54,003 - INFO - Using database connection from environment variable
+2025-06-03 20:33:54,075 - INFO - Successfully retrieved comprehensive employee info for employee ID 4abc59ac-d825-4c2e-93f9-8e0a1cc44455
+2025-06-03 20:33:54,075 - INFO - Sending tool execution response (status=200)
+2025-06-03 20:39:51,573 - INFO - Using database connection from environment variable
+2025-06-03 20:39:51,635 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 20:39:51,635 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 20:39:51,635 - INFO -    All database operations will use this connection.
+2025-06-03 20:39:52,050 - INFO - Using database connection from environment variable
+2025-06-03 20:39:52,211 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 20:39:52,213 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 20:39:52,213 - INFO -    All database operations will use this connection.
+2025-06-03 20:46:56,622 - INFO - Received tool execution request: tool='get_employee_info', params={'employee_id': '4abc59ac-d825-4c2e-93f9-8e0a1cc44455'}
+2025-06-03 20:46:56,622 - INFO - Using database connection from environment variable
+2025-06-03 20:46:56,694 - INFO - Successfully retrieved comprehensive employee info for employee ID 4abc59ac-d825-4c2e-93f9-8e0a1cc44455
+2025-06-03 20:46:56,694 - INFO - Sending tool execution response (status=200)
+2025-06-03 20:47:09,022 - ERROR - Tool 'update_contact_info' returned an error: Missing employee_id parameter
+2025-06-03 20:47:09,022 - INFO - Sending tool execution response (status=400)
+2025-06-03 20:47:09,758 - INFO - Using database connection from environment variable
+2025-06-03 20:47:09,819 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 20:47:09,819 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 20:47:09,819 - INFO -    All database operations will use this connection.
+2025-06-03 20:49:56,537 - INFO - Using database connection from environment variable
+2025-06-03 20:49:56,600 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 20:49:56,600 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 20:49:56,601 - INFO -    All database operations will use this connection.
+2025-06-03 20:49:57,002 - INFO - Using database connection from environment variable
+2025-06-03 20:49:57,062 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 20:49:57,062 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 20:49:57,063 - INFO -    All database operations will use this connection.
+2025-06-03 20:50:13,090 - INFO - Received tool execution request: tool='get_employee_info', params={'employee_id': '4abc59ac-d825-4c2e-93f9-8e0a1cc44455'}
+2025-06-03 20:50:13,090 - INFO - Using database connection from environment variable
+2025-06-03 20:50:13,161 - INFO - Successfully retrieved comprehensive employee info for employee ID 4abc59ac-d825-4c2e-93f9-8e0a1cc44455
+2025-06-03 20:50:13,161 - INFO - Sending tool execution response (status=200)
+2025-06-03 20:50:21,812 - INFO - Received tool execution request: tool='get_employee_info', params={'employee_id': '4abc59ac-d825-4c2e-93f9-8e0a1cc44455'}
+2025-06-03 20:50:21,812 - INFO - Using database connection from environment variable
+2025-06-03 20:50:21,885 - INFO - Successfully retrieved comprehensive employee info for employee ID 4abc59ac-d825-4c2e-93f9-8e0a1cc44455
+2025-06-03 20:50:21,885 - INFO - Sending tool execution response (status=200)
+2025-06-03 20:52:58,400 - INFO - Using database connection from environment variable
+2025-06-03 20:52:58,487 - INFO - Successfully updated contact information for employee ID 4abc59ac-d825-4c2e-93f9-8e0a1cc44455. Fields updated: address
+2025-06-03 20:52:58,487 - INFO - Sending tool execution response (status=200)
+2025-06-03 20:53:01,328 - INFO - Received tool execution request: tool='get_employee_info', params={'employee_id': '4abc59ac-d825-4c2e-93f9-8e0a1cc44455'}
+2025-06-03 20:53:01,328 - INFO - Using database connection from environment variable
+2025-06-03 20:53:01,400 - INFO - Successfully retrieved comprehensive employee info for employee ID 4abc59ac-d825-4c2e-93f9-8e0a1cc44455
+2025-06-03 20:53:01,400 - INFO - Sending tool execution response (status=200)

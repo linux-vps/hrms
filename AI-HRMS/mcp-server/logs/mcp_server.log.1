@@ -1,0 +1,123 @@
+2025-06-03 19:03:22,908 - INFO - Using database connection from environment variable
+2025-06-03 19:03:23,076 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:03:23,076 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:03:23,078 - INFO -    All database operations will use this connection.
+2025-06-03 19:03:23,528 - INFO - Using database connection from environment variable
+2025-06-03 19:03:23,588 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:03:23,588 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:03:23,589 - INFO -    All database operations will use this connection.
+2025-06-03 19:03:44,123 - INFO - Received tool execution request: tool='get_all_products', params={}
+2025-06-03 19:03:44,123 - ERROR - Unknown tool requested: get_all_products
+2025-06-03 19:03:44,123 - INFO - Sending tool execution response (status=404)
+2025-06-03 19:03:46,157 - INFO - Received tool execution request: tool='get_customer_info', params={'customer_id': '4abc59ac-d825-4c2e-93f9-8e0a1cc44455'}
+2025-06-03 19:03:46,157 - ERROR - Unknown tool requested: get_customer_info
+2025-06-03 19:03:46,157 - INFO - Sending tool execution response (status=404)
+2025-06-03 19:04:10,849 - INFO - Received tool execution request: tool='get_employee_info', params={'employee_id': '4abc59ac-d825-4c2e-93f9-8e0a1cc44455'}
+2025-06-03 19:04:10,850 - INFO - Using database connection from environment variable
+2025-06-03 19:04:10,918 - INFO - Successfully retrieved comprehensive employee info for employee ID 4abc59ac-d825-4c2e-93f9-8e0a1cc44455
+2025-06-03 19:04:10,918 - INFO - Sending tool execution response (status=200)
+2025-06-03 19:04:24,253 - INFO - Received tool execution request: tool='get_task_details', params={'task_id': '1b9bfe1a-457a-43f3-a5a2-a0eed59e401b'}
+2025-06-03 19:04:24,253 - INFO - Using database connection from environment variable
+2025-06-03 19:04:24,308 - ERROR - Error retrieving task details: column t.createdBy does not exist
+LINE 10:                 LEFT JOIN employee c ON t."createdBy" = c.id
+                                                 ^
+HINT:  Perhaps you meant to reference the column "t.createdAt".
+Traceback (most recent call last):
+  File "C:\Users\dinhn\Desktop\AI-HRMS\mcp-server\app\mcp\tools.py", line 622, in tool_get_task_details
+    raw_task = execute_query("""
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\dinhn\Desktop\AI-HRMS\mcp-server\app\mcp\tools.py", line 618, in execute_query
+    cursor.execute(query, params)
+  File "C:\Users\dinhn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\psycopg2\extras.py", line 236, in execute
+    return super().execute(query, vars)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column t.createdBy does not exist
+LINE 10:                 LEFT JOIN employee c ON t."createdBy" = c.id
+                                                 ^
+HINT:  Perhaps you meant to reference the column "t.createdAt".
+
+2025-06-03 19:04:24,311 - ERROR - Tool 'get_task_details' returned an error: Database error: column t.createdBy does not exist
+LINE 10:                 LEFT JOIN employee c ON t."createdBy" = c.id
+                                                 ^
+HINT:  Perhaps you meant to reference the column "t.createdAt".
+
+2025-06-03 19:04:24,311 - INFO - Sending tool execution response (status=400)
+2025-06-03 19:06:04,202 - INFO - Using database connection from environment variable
+2025-06-03 19:06:04,271 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:06:04,271 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:06:04,271 - INFO -    All database operations will use this connection.
+2025-06-03 19:06:46,263 - INFO - Using database connection from environment variable
+2025-06-03 19:06:46,324 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:06:46,324 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:06:46,324 - INFO -    All database operations will use this connection.
+2025-06-03 19:07:15,138 - INFO - Using database connection from environment variable
+2025-06-03 19:07:15,197 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:07:15,197 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:07:15,200 - INFO -    All database operations will use this connection.
+2025-06-03 19:07:43,080 - INFO - Using database connection from environment variable
+2025-06-03 19:07:43,163 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:07:43,163 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:07:43,163 - INFO -    All database operations will use this connection.
+2025-06-03 19:08:59,600 - INFO - Using database connection from environment variable
+2025-06-03 19:08:59,661 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:08:59,662 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:08:59,662 - INFO -    All database operations will use this connection.
+2025-06-03 19:09:23,118 - INFO - Using database connection from environment variable
+2025-06-03 19:09:23,173 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:09:23,173 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:09:23,175 - INFO -    All database operations will use this connection.
+2025-06-03 19:09:23,615 - INFO - Using database connection from environment variable
+2025-06-03 19:09:23,678 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:09:23,678 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:09:23,678 - INFO -    All database operations will use this connection.
+2025-06-03 19:12:34,382 - INFO - Using database connection from environment variable
+2025-06-03 19:12:34,441 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:12:34,441 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:12:34,441 - INFO -    All database operations will use this connection.
+2025-06-03 19:12:34,866 - INFO - Using database connection from environment variable
+2025-06-03 19:12:34,928 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:12:34,929 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:12:34,929 - INFO -    All database operations will use this connection.
+2025-06-03 19:12:47,714 - INFO - Received tool execution request: tool='get_all_products', params={}
+2025-06-03 19:12:47,714 - ERROR - Unknown tool requested: get_all_products
+2025-06-03 19:12:47,714 - INFO - Sending tool execution response (status=404)
+2025-06-03 19:12:49,748 - INFO - Received tool execution request: tool='get_customer_info', params={'customer_id': '4abc59ac-d825-4c2e-93f9-8e0a1cc44455'}
+2025-06-03 19:12:49,748 - ERROR - Unknown tool requested: get_customer_info
+2025-06-03 19:12:49,748 - INFO - Sending tool execution response (status=404)
+2025-06-03 19:13:06,917 - INFO - Received tool execution request: tool='get_employee_info', params={'employee_id': '4abc59ac-d825-4c2e-93f9-8e0a1cc44455'}
+2025-06-03 19:13:06,917 - INFO - Using database connection from environment variable
+2025-06-03 19:13:06,994 - INFO - Successfully retrieved comprehensive employee info for employee ID 4abc59ac-d825-4c2e-93f9-8e0a1cc44455
+2025-06-03 19:13:06,994 - INFO - Sending tool execution response (status=200)
+2025-06-03 19:13:18,087 - INFO - Received tool execution request: tool='get_task_details', params={'task_id': '1b9bfe1a-457a-43f3-a5a2-a0eed59e401b'}
+2025-06-03 19:13:18,087 - INFO - Using database connection from environment variable
+2025-06-03 19:13:18,152 - ERROR - Error retrieving task details: column c.authorId does not exist
+LINE 4:                 JOIN employee e ON c."authorId" = e.id
+                                           ^
+Traceback (most recent call last):
+  File "C:\Users\dinhn\Desktop\AI-HRMS\mcp-server\app\mcp\tools.py", line 645, in tool_get_task_details
+    raw_comments = execute_query("""
+                   ^^^^^^^^^^^^^^^^^
+  File "C:\Users\dinhn\Desktop\AI-HRMS\mcp-server\app\mcp\tools.py", line 618, in execute_query
+    cursor.execute(query, params)
+  File "C:\Users\dinhn\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\psycopg2\extras.py", line 236, in execute
+    return super().execute(query, vars)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column c.authorId does not exist
+LINE 4:                 JOIN employee e ON c."authorId" = e.id
+                                           ^
+
+2025-06-03 19:13:18,157 - ERROR - Tool 'get_task_details' returned an error: Database error: column c.authorId does not exist
+LINE 4:                 JOIN employee e ON c."authorId" = e.id
+                                           ^
+
+2025-06-03 19:13:18,157 - INFO - Sending tool execution response (status=400)
+2025-06-03 19:14:01,513 - INFO - Using database connection from environment variable
+2025-06-03 19:14:01,583 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:14:01,583 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:14:01,583 - INFO -    All database operations will use this connection.
+2025-06-03 19:18:04,050 - INFO - Using database connection from environment variable
+2025-06-03 19:18:04,113 - INFO - [OK] Successfully connected to PostgreSQL database
+2025-06-03 19:18:04,115 - INFO - [OK] MCP Server configured. PostgreSQL connection established.
+2025-06-03 19:18:04,115 - INFO -    All database operations will use this connection.
+2025-06-03 19:18:06,608 - INFO - Using database connection from environment variable
+2025-06-03 19:18:06,678 - INFO - [OK] Successfully connected to PostgreSQL database
